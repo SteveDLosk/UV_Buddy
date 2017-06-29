@@ -4,15 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.weebly.stevelosk.uv_buddy.ApiTestActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/testResultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="20dp"
+        android:text="The UV index goes here"/>
 
+    <EditText
+        android:id="@+id/testZipCodeEditText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter zipcode here"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/testGetUVIndexButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Get the UV index!"
+        android:padding="20dp"/>
+
+    <Button
+        android:id="@+id/testUseLocationService"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Get my current location"
+        android:padding="20dp"/>
 </LinearLayout>

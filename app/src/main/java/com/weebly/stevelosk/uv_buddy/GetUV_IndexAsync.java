@@ -33,9 +33,13 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
     private String TAG = "GetUV_IndexAsync";
     private ApiTestActivity mApiTestActivity;
+    private String mZipCode;
+    private String mHour;
 
-    public GetUV_IndexAsync (ApiTestActivity apiTestActivity) {
+    public GetUV_IndexAsync (ApiTestActivity apiTestActivity, String zipCode, String hour) {
         mApiTestActivity = apiTestActivity;
+        mZipCode = zipCode;
+        mHour = hour;
     }
 
     @Override
@@ -49,7 +53,7 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
         String baseUriString = "https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVHOURLY/ZIP/";
         //baseUriString += zipCode;
-        baseUriString += "98390";
+        baseUriString += mZipCode;
         baseUriString += "/JSON";
 
         Log.i(TAG, baseUriString);
@@ -80,10 +84,9 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
             Log.i(TAG, jsonReturned);
 
             // get UV index integer from json
-            // TODO: pass in hour currently using 5PM to test
 
             // find correct hour object
-            String correctHourJSON = "05 PM\",\"UV_VALUE\":";
+            String correctHourJSON = mHour + "\",\"UV_VALUE\":";
             int index = jsonReturned.indexOf(correctHourJSON);
             index = index + correctHourJSON.length();
 
@@ -93,6 +96,7 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
             if (value.substring(1, 2).equals("}")) {
                 value = value.substring(0, 1);
             }
+
 
             Integer result = Integer.valueOf(value);
             return result;

@@ -34,7 +34,13 @@ public class ApiTestActivity extends AppCompatActivity {
 
                 ApiTestActivity callingActivity = ApiTestActivity.this;
                 Integer currentUV_index = -1;
-                GetUV_IndexAsync task = new GetUV_IndexAsync(callingActivity);
+
+                // pass in current zipcode and hour
+                String zipCode = testZipCodeEditText.getText().toString();
+                // TODO: get current hour
+                String hour = "05 PM";
+                GetUV_IndexAsync task = new GetUV_IndexAsync(
+                        callingActivity, zipCode, hour);
                 task.execute();
 
 

@@ -1,5 +1,7 @@
 package com.weebly.stevelosk.uv_buddy;
 
+import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.JsonReader;
@@ -30,6 +32,12 @@ import static android.R.attr.entries;
 public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
     private String TAG = "GetUV_IndexAsync";
+    private ApiTestActivity mApiTestActivity;
+
+    public GetUV_IndexAsync (ApiTestActivity apiTestActivity) {
+        mApiTestActivity = apiTestActivity;
+    }
+
     @Override
     protected Integer doInBackground(String... zipCode) {
 
@@ -37,10 +45,14 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
         BufferedReader reader = null;
 
         // Pass zipCode into Api call
+        //zipCode = "98390";
 
         String baseUriString = "https://iaspub.epa.gov/enviro/efservice/getEnvirofactsUVHOURLY/ZIP/";
-        baseUriString += zipCode;
+        //baseUriString += zipCode;
+        baseUriString += "98390";
         baseUriString += "/JSON";
+
+        Log.i(TAG, baseUriString);
 
         // Get JSON
 
@@ -58,12 +70,14 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
             String line = "";
 
             while ((line = reader.readLine()) != null) {
-                buffer.append(line+"\n");
+                buffer.append(line + "\n");
                 Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
             }
 
             String jsonReturned = buffer.toString();
+            Log.i(TAG, "Here is the JSON:");
+            Log.i(TAG, jsonReturned);
 
             // get UV index integer from json
             // TODO: pass in hour currently using 5PM to test
@@ -71,17 +85,17 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
             // find correct hour object
             String correctHourJSON = "05 PM\",\"UV_VALUE\":";
             int index = jsonReturned.indexOf(correctHourJSON);
+            index = index + correctHourJSON.length();
 
             // get the value
             String value = jsonReturned.substring(index, index + 2);
             // pull off end bracket if result is a single digit
-            if (value.substring(1,2).equals("}")) {
+            if (value.substring(1, 2).equals("}")) {
                 value = value.substring(0, 1);
             }
 
             Integer result = Integer.valueOf(value);
             return result;
-
 
 
         } catch (MalformedURLException e) {
@@ -104,6 +118,13 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
         return null;
     }
 
+
+    @Override
+    protected void onPostExecute(Integer result) {
+
+        Log.i(TAG, "entered onPostExecute");
+
+        mApiTestActivity.update(result);
 
     }
 
@@ -129,10 +150,10 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
                             continue;
                     }
 
-                // find UV_Index in correct JSON object
+                    // find UV_Index in correct JSON object
 
                     String name = reader.nextName();
-                    if (name.equals("UV_VALUE")){
+                    if (name.equals("UV_VALUE")) {
                         result = reader.nextInt();
                     }
                 }
@@ -141,6 +162,8 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
                 reader.close();
             }
         }
-
     }
+}
+
+
 

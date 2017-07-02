@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.util.JsonReader;
 import android.util.Log;
 import android.util.Xml;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -35,15 +37,21 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
     private ApiTestActivity mApiTestActivity;
     private String mZipCode;
     private String mHour;
+    private Context mContext;
+    private Boolean errors;
 
     public GetUV_IndexAsync (ApiTestActivity apiTestActivity, String zipCode, String hour) {
         mApiTestActivity = apiTestActivity;
         mZipCode = zipCode;
         mHour = hour;
+        mContext = apiTestActivity.getApplicationContext();
     }
 
     @Override
     protected Integer doInBackground(String... zipCode) {
+
+        // flag to catch problems
+        errors = false;
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -98,14 +106,26 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
             }
 
 
-            Integer result = Integer.valueOf(value);
-            return result;
+            try {
+                Integer result = Integer.valueOf(value);
+                return result;
+            }
+            catch (java.lang.NumberFormatException e) {
+                e.printStackTrace();
+                reportProblem();
+            }
+
 
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            reportProblem();
         } catch (IOException e) {
             e.printStackTrace();
+            reportProblem();
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            reportProblem();
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -130,6 +150,21 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
         mApiTestActivity.update(result);
 
+        if (errors) {
+            reportProblem();
+        }
+
+    }
+
+    private void reportProblem () {
+        // Apparently I have to do this
+        Log.i(TAG, "entered reportProblem");
+
+
+    }
+
+    private void reportProblem (Exception e) {
+        Log.i(TAG, e.getMessage().toString());
     }
 
 

@@ -121,4 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
         return hourString;
     }
+
+    protected void reportLoading () {
+        resultTextView.setText("loading");
+    }
 }

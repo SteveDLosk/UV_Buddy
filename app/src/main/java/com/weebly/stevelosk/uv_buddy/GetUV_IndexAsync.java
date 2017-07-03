@@ -48,6 +48,11 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
     }
 
     @Override
+    protected void onPreExecute () {
+
+        mActivity.reportLoading();
+    }
+    @Override
     protected Integer doInBackground(String... zipCode) {
 
         // flag to catch problems

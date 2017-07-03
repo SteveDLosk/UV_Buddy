@@ -34,17 +34,17 @@ import static android.R.attr.entries;
 public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
     private String TAG = "GetUV_IndexAsync";
-    private ApiTestActivity mApiTestActivity;
+    private MainActivity mActivity;
     private String mZipCode;
     private String mHour;
     private Context mContext;
     private Boolean errors;
 
-    public GetUV_IndexAsync (ApiTestActivity apiTestActivity, String zipCode, String hour) {
-        mApiTestActivity = apiTestActivity;
+    public GetUV_IndexAsync (MainActivity mainActivity, String zipCode, String hour) {
+        mActivity = mainActivity;
         mZipCode = zipCode;
         mHour = hour;
-        mContext = apiTestActivity.getApplicationContext();
+        mContext = mActivity.getApplicationContext();
     }
 
     @Override
@@ -148,7 +148,7 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
         Log.i(TAG, "entered onPostExecute");
 
-        mApiTestActivity.update(result);
+        mActivity.update(result);
 
         if (errors) {
             reportProblem();

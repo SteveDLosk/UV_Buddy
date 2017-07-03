@@ -2,6 +2,8 @@ package com.weebly.stevelosk.uv_buddy;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,11 +62,18 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, String.valueOf(index));
         try {
             resultTextView.setText(index.toString());
+            // Get resources
+            Resources res = getResources();
 
             // Get description
-            String[] desc_array = getResources().getStringArray(R.array.UV_index_description_array);
+            String[] desc_array = res.getStringArray(R.array.UV_index_description_array);
             String description = desc_array[index];
             UV_indexDescriptionTextView.setText(description);
+
+            // Get color array
+            String[] UV_colors = res.getStringArray(R.array.UV_color_code_array);
+
+
         }
         catch (NullPointerException e) {
             resultTextView.setText("Something went wrong");

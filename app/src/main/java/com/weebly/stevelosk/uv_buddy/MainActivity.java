@@ -1,5 +1,7 @@
 package com.weebly.stevelosk.uv_buddy;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     private TextView resultTextView;
+    private TextView UV_indexDescriptionTextView;
     private EditText enterZipCodeEditText;
     private Button getUV_withZipCodeButton;
     private Button getUV_withLocationButton;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         resultTextView = (TextView) findViewById(R.id.resultTextView);
+        UV_indexDescriptionTextView = (TextView) findViewById(R.id.UV_indexDescriptionTextView);
         enterZipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
         getUV_withZipCodeButton = (Button) findViewById(R.id.getUV_withZipCodeButton);
         getUV_withLocationButton = (Button) findViewById(R.id.getUV_withLocationButton);
@@ -56,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, String.valueOf(index));
         try {
             resultTextView.setText(index.toString());
+
+            // Get description
+            String[] desc_array = getResources().getStringArray(R.array.UV_index_description_array);
+            String description = desc_array[index];
+            UV_indexDescriptionTextView.setText(description);
         }
         catch (NullPointerException e) {
             resultTextView.setText("Something went wrong");

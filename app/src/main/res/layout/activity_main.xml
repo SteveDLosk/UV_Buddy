@@ -18,10 +18,18 @@
 
         />
 
+    <TextView
+        android:id="@+id/UV_indexDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
     <EditText
         android:id="@+id/zipCodeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:hint="Enter the zipcode to get UV index"
         android:layout_below="@id/resultTextView"/>
 
@@ -30,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="12dp"
         android:layout_alignParentBottom="true">
 
         <Button

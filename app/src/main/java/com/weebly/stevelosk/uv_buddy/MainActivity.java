@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
             String description = desc_array[index];
             UV_indexDescriptionTextView.setText(description);
 
-            // Get color array
-            String[] UV_colors = res.getStringArray(R.array.UV_color_code_array);
+            // set background color
+            updateColor(index, res);
 
 
         }
@@ -124,5 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
     protected void reportLoading () {
         resultTextView.setText("loading");
+    }
+
+    private void updateColor (int index, Resources res) {
+        // Possible index overflow
+        if (index > 11) {
+            index = 11;
+        }
+        String[] colorStringArray = res.getStringArray(R.array.UV_color_code_array);
+        String colorString = colorStringArray[index];
+        resultTextView.setBackgroundColor(Color.parseColor(colorString));
+
     }
 }

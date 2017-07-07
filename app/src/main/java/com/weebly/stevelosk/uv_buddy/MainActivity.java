@@ -77,7 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
         catch (NullPointerException e) {
-            resultTextView.setText("Something went wrong");
+            // clear old index number
+            resultTextView.setText("Something\nwent\nwrong");
+            // clear old index color and info
+            UV_indexDescriptionTextView.setText("");
+            resultTextView.setBackgroundColor(Color.WHITE);
+
         }
     }
 

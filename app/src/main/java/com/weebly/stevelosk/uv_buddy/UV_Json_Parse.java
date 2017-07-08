@@ -13,7 +13,7 @@ public class UV_Json_Parse {
     private final long hour = 1000 * 60 * 60;
 
     // stores up to 24 hours' forecast UV index
-    private int[] UVindexByHour;
+    private Integer[] UVindexByHour;
 
     public UV_Json_Parse (String jsonInput) {
 
@@ -21,7 +21,7 @@ public class UV_Json_Parse {
         this.timeStamp = System.currentTimeMillis();
 
         // initialize data array.  Use -1 to indicate no data for that hour
-        UVindexByHour = new int[24];
+        UVindexByHour = new Integer[24];
         for (int i = 0; i < 24; i++) {
             UVindexByHour[i] = -1;
         }
@@ -30,7 +30,7 @@ public class UV_Json_Parse {
         setUVindexByHour (this.UVindexByHour, jsonInput);
     }
 
-    private void setUVindexByHour (int[] array, String json) {
+    private void setUVindexByHour (Integer[] array, String json) {
         // pulls data from the json and loads it into the array
 
         // variables for counting through the json
@@ -77,7 +77,7 @@ public class UV_Json_Parse {
 
     }
 
-    public int[] getDataArray () {
+    public Integer[] getDataArray () {
         return UVindexByHour;
     }
 

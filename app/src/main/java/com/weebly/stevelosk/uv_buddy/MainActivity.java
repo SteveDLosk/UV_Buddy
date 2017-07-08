@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Button getUV_withZipCodeButton;
     private Button getUV_withLocationButton;
 
+    private Integer[] uviArray;
+
     private String TAG = "Main Activity";
 
     @Override
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    protected void updateArray(Integer[] data) {
+        this.uviArray = data;
     }
 
     protected void update(Integer index) {

@@ -78,31 +78,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void update(Integer index) {
-        Log.i(TAG, "entered update");
-        Log.i(TAG, String.valueOf(index));
-        try {
-            resultTextView.setText(index.toString());
-            // Get resources
-            Resources res = getResources();
 
-            // Get description
-            String[] desc_array = res.getStringArray(R.array.UV_index_description_array);
-            String description = desc_array[index];
-            UV_indexDescriptionTextView.setText(description);
+        if (index == -1) {
+            // got here because there was an error
+            reportErrorToUser();
 
-            // set background color
-            updateColor(index, res);
+        } else {
+            try {
+                resultTextView.setText(index.toString());
+                // Get resources
+                Resources res = getResources();
+
+                // Get description
+                String[] desc_array = res.getStringArray(R.array.UV_index_description_array);
+                String description = desc_array[index];
+                UV_indexDescriptionTextView.setText(description);
+
+                // set background color
+                updateColor(index, res);
 
 
+            } catch (NullPointerException e) {
+                reportErrorToUser();
+            }
         }
-        catch (NullPointerException e) {
-            // clear old index number
-            resultTextView.setText("Something\nwent\nwrong");
-            // clear old index color and info
-            UV_indexDescriptionTextView.setText("");
-            resultTextView.setBackgroundColor(Color.WHITE);
+    }
 
-        }
+    private void reportErrorToUser() {
+        // clear old index number
+        resultTextView.setText("Something\nwent\nwrong");
+        // clear old index color and info
+        UV_indexDescriptionTextView.setText("");
+        resultTextView.setBackgroundColor(Color.WHITE);
+
     }
 
     private String getTime () {

@@ -52,9 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
                 // get current hour
                 String hour = getTime();
+
+                // commented out old async task /*
+                /*
                 GetUV_IndexAsync task = new GetUV_IndexAsync(
                         callingActivity, zipCode, hour);
                 task.execute();
+                */
+
+                GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
+                        callingActivity, zipCode, hour);
+                task.execute();
+
 
             }
         });
@@ -62,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
     protected void updateArray(Integer[] data) {
         this.uviArray = data;
+        Log.i(TAG, "Array data: ");
+        for (int i = 0; i < 24; i++) {
+            Log.i(TAG, uviArray[i].toString());
+        }
     }
 
     protected void update(Integer index) {

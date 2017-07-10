@@ -43,15 +43,23 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer[]> {
         // flag for errors
         Boolean errors = false;
 
+        // testing
+        String zipCodeStr = "98390";
+
         // objects to handle data collection
         HttpURLConnection connection = null;
         BufferedReader reader = null;
-        String baseUriString = "https://www.wunderground.com/weather/api/d/d4b92a82e8213ee0/edit.html?api_action=changesubscription&api_history=undefined&api_usage=0&api_package=a";
+        String key = "d4b92a82e8213ee0";
+        String queryByZip = "/conditions/q/zip/" + zipCodeStr + ".json";
+        String baseUriString = "http://api.wunderground.com/api/"; // + key +
+        String fullQueryString = baseUriString + key + queryByZip;
+
         String jsonReturned = "";
 
+       // http://api.wunderground.com/api/d4b92a82e8213ee0/conditions/q/CA/San_Francisco.json
         // get the json
         try {
-            URL url = new URL(baseUriString);
+            URL url = new URL(fullQueryString);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
 

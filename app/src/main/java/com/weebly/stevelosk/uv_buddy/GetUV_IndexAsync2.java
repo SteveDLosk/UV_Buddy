@@ -16,7 +16,7 @@ import java.net.URL;
  * Created by steve on 7/7/2017.
  */
 
-public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer[]> {
+public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
 
     private String TAG = "GetUV_IndexAsync2";
     private MainActivity mActivity;
@@ -38,7 +38,7 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer[]> {
         mActivity.reportLoading();
     }
     @Override
-    protected Integer[] doInBackground(String... zipCode) {
+    protected Integer doInBackground(String... zipCode) {
 
         // flag for errors
         Boolean errors = false;
@@ -50,7 +50,7 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer[]> {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         String key = "d4b92a82e8213ee0";
-        String queryByZip = "/conditions/q/zip/" + zipCodeStr + ".json";
+        String queryByZip = "/conditions/q/zip/" + mZipCode + ".json";
         String baseUriString = "http://api.wunderground.com/api/"; // + key +
         String fullQueryString = baseUriString + key + queryByZip;
 
@@ -103,14 +103,14 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer[]> {
         }
 
         UV_Json_Parse uv_json_parse = new UV_Json_Parse(jsonReturned);
-        return uv_json_parse.getDataArray();
+        return uv_json_parse.getCurrentUV();
     }
 
 
     @Override
-    protected void onPostExecute(Integer[] result) {
+    protected void onPostExecute(Integer result) {
         Log.i(TAG, "entered onPostExecute");
-        mActivity.updateArray(result);
+        mActivity.update(result);
     }
 
 }

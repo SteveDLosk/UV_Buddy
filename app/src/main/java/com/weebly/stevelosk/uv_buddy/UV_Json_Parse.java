@@ -1,6 +1,10 @@
 package com.weebly.stevelosk.uv_buddy;
 
 
+import android.util.Log;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by steve on 7/7/2017.
  */
@@ -19,7 +23,9 @@ public class UV_Json_Parse {
 
         // timeStamp the data
         this.timeStamp = System.currentTimeMillis();
+        this.json = jsonInput;
 
+        /*
         // initialize data array.  Use -1 to indicate no data for that hour
         UVindexByHour = new Integer[24];
         for (int i = 0; i < 24; i++) {
@@ -28,6 +34,7 @@ public class UV_Json_Parse {
 
         // load the Json data into the array
         setUVindexByHour (this.UVindexByHour, jsonInput);
+        */
     }
 
     private void setUVindexByHour (Integer[] array, String json) {
@@ -83,5 +90,19 @@ public class UV_Json_Parse {
 
     public long getDataAge () {
         return System.currentTimeMillis() - timeStamp;
+    }
+
+    public int getCurrentUV () {
+        // sample String:  "UV":"0"
+        int index = json.indexOf("UV\":\"");
+
+        // move index to the start of the actual value
+        index += 5;
+        String currentUV = json.substring(index, index + 2);
+
+        if (currentUV.substring(1,2).equals("\"")) {
+            currentUV = currentUV.substring(0,1);
+        }
+        return Integer.parseInt(currentUV);
     }
 }

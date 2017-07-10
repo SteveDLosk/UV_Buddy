@@ -43,8 +43,11 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
         // flag for errors
         Boolean errors = false;
 
-        // testing
-        String zipCodeStr = "98390";
+        // testing for a valid zipcode before sending query
+        if (mZipCode.length() < 5) {
+            // indicates error
+            return -1;
+        }
 
         // objects to handle data collection
         HttpURLConnection connection = null;

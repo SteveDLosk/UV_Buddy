@@ -92,17 +92,21 @@ public class UV_Json_Parse {
         return System.currentTimeMillis() - timeStamp;
     }
 
-    public int getCurrentUV () {
+    public Integer getCurrentUV () {
         // sample String:  "UV":"0"
         int index = json.indexOf("UV\":\"");
 
         // move index to the start of the actual value
         index += 5;
-        String currentUV = json.substring(index, index + 2);
 
-        if (currentUV.substring(1,2).equals("\"")) {
-            currentUV = currentUV.substring(0,1);
-        }
-        return Integer.parseInt(currentUV);
+        // index for the closing "
+        int index2 = json.indexOf('"', index + 1);
+
+        String currentUV = json.substring(index, index2);
+
+        double uvIndexDouble = Double.parseDouble(currentUV);
+
+        int uvIndexInt = (int) Math.round(uvIndexDouble);
+        return uvIndexInt;
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText enterZipCodeEditText;
     private Button getUV_withZipCodeButton;
     private Button getUV_withLocationButton;
+    private Toolbar mActionBar;
 
     private Integer[] uviArray;
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mActionBar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(mActionBar);
 
         resultTextView = (TextView) findViewById(R.id.resultTextView);
         UV_indexDescriptionTextView = (TextView) findViewById(R.id.UV_indexDescriptionTextView);

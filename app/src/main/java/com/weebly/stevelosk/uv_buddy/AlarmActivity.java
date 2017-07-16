@@ -18,21 +18,39 @@ public class AlarmActivity {
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
     private Context mContext;
-    private int mTargetIndex;
     private String mZipcode;
     private Calendar mCalandar;
 
+    // instance variables for index data
+    priavte boolean hasHitTargetIndex;
+    private boolean alertWhenLowEnough;
+    private boolean alertWhenTooHigh;
+    private Integer mTargetIndex;
+    private Integer mCurrentIndex;
+
     private final long HALFHOUR = 30 * 60 * 1000;
 
-    public AlarmActivity (Context appContext, int targetIndex, String zipCode) {
+    public AlarmActivity (Context appContext, int targetIndex, int mCurrentIndex, String zipCode) {
         mContext = appContext;
         mZipcode = zipCode;
         mTargetIndex = targetIndex;
         alarmMgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         mCalandar = Calendar.getInstance();
 
+        // logic
+        hasHitTargetIndex = false;
+        alertWhenLowEnough = false;
+        alertWhenTooHigh = false;
 
-        Intent intent = new Intent(mContext, AlarmReceiver.class);
+        if (mCurrentIndex < targetIndex) {
+            alertWhenTooHigh = true;
+        }
+        else if (mCurrentIndex > targetIndex) {
+            alertWhenTooHigh = false;
+        }
+
+
+        Intent intent = new Intent(mContext, new AlarmReceiver(mZipcode, mCurrentIndex));
         alarmIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
 
         /*
@@ -47,5 +65,18 @@ public class AlarmActivity {
 
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, mCalandar.getTimeInMillis(),
                 HALFHOUR, alarmIntent);
+    }
+
+    private void update (Integer result) {
+
+        mCurrentIndex = result;
+
+        if (mCurrentIndex <= mTargetIndex && alertWhenLowEnough) {
+            hasHitTargetIndex = true;
+        }
+        else if (mCurrentIndex >= mTargetIndex && alertWhenTooHigh) {
+            hasHitTargetIndex = true;
+        }
+
     }
 }

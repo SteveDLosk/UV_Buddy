@@ -11,6 +11,4 @@
         android:title="@string/epaScaleUri"
         app:showAsAction="ifRoom"/>
 
-
-
 </menu>

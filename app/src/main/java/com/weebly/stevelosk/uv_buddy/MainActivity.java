@@ -1,14 +1,18 @@
 package com.weebly.stevelosk.uv_buddy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Integer[] uviArray;
 
     private String TAG = "Main Activity";
+    private Resources res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +41,15 @@ public class MainActivity extends AppCompatActivity {
         mActionBar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(mActionBar);
 
+        res = getResources();
+
         resultTextView = (TextView) findViewById(R.id.resultTextView);
         UV_indexDescriptionTextView = (TextView) findViewById(R.id.UV_indexDescriptionTextView);
         enterZipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
         getUV_withZipCodeButton = (Button) findViewById(R.id.getUV_withZipCodeButton);
         getUV_withLocationButton = (Button) findViewById(R.id.getUV_withLocationButton);
+
+        mActionBar.inflateMenu(R.menu.menu);
 
         // Button Click listener
         getUV_withZipCodeButton.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +114,33 @@ public class MainActivity extends AppCompatActivity {
             } catch (NullPointerException e) {
                 reportErrorToUser();
             }
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.showEpaScale:
+                // User chose the "Settings" item, show the app settings UI...
+                // Launch EPA scale
+
+                String uriString = res.getString(R.string.epaScaleUri);
+                Uri webUri = Uri.parse(uriString);
+                Intent navToEpaIntent = new Intent(Intent.ACTION_VIEW);
+                navToEpaIntent.setData(webUri);
+                startActivity(navToEpaIntent);
+
+                return true;
+
+            default:
+                return true;
         }
     }
 

@@ -21,14 +21,12 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
     private String TAG = "GetUV_IndexAsync2";
     private MainActivity mActivity;
     private String mZipCode;
-    private String mHour;
     private Context mContext;
     private Boolean errors;
 
-    public GetUV_IndexAsync2 (MainActivity mainActivity, String zipCode, String hour) {
+    public GetUV_IndexAsync2 (MainActivity mainActivity, String zipCode) {
         mActivity = mainActivity;
         mZipCode = zipCode;
-        mHour = hour;
         mContext = mActivity.getApplicationContext();
     }
 

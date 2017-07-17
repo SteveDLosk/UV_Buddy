@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 */
 
                 GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
-                        callingActivity, zipCode, hour);
+                        callingActivity, zipCode);
                 task.execute();
 
 

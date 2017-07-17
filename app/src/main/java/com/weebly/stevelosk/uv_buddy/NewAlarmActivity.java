@@ -29,7 +29,7 @@ public class NewAlarmActivity extends AppCompatActivity {
 
         // get current index
         GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
-                this, mZipCode, "test");
+                this, mZipCode);
         task.execute();
     }
 }

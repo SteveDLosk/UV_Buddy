@@ -1,5 +1,6 @@
 package com.weebly.stevelosk.uv_buddy;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -19,15 +20,15 @@ import java.net.URL;
 public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
 
     private String TAG = "GetUV_IndexAsync2";
-    private MainActivity mActivity;
+    private iAsyncCalling mActivity;
     private String mZipCode;
     private Context mContext;
     private Boolean errors;
 
-    public GetUV_IndexAsync2 (MainActivity mainActivity, String zipCode) {
-        mActivity = mainActivity;
+    public GetUV_IndexAsync2 (Context context, iAsyncCalling callingActivity, String zipCode) {
+        mActivity = callingActivity;
         mZipCode = zipCode;
-        mContext = mActivity.getApplicationContext();
+        mContext = context;
     }
 
     @Override

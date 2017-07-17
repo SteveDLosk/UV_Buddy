@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements iAsyncCalling {
 
     private TextView resultTextView;
     private TextView UV_indexDescriptionTextView;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 */
 
                 GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
-                        callingActivity, zipCode);
+                        getApplicationContext(), callingActivity, zipCode);
                 task.execute();
 
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void update(Integer index) {
+    public void update(Integer index) {
 
         if (index == -1) {
             // got here because there was an error
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         return hourString;
     }
 
-    protected void reportLoading () {
+    public void reportLoading () {
         resultTextView.setText("loading");
     }
 

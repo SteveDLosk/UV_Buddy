@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
     private String TAG = "Main Activity";
     private Resources res;
 
+    private String mZipCode;
+
+
+    // TODO: credit wunderground API!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
                 Integer currentUV_index = -1;
 
                 // pass in current zipCode and hour
-                String zipCode = enterZipCodeEditText.getText().toString();
+                mZipCode = enterZipCodeEditText.getText().toString();
 
                 // get current hour
                 String hour = getTime();
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
                 */
 
                 GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
-                        getApplicationContext(), callingActivity, zipCode);
+                        getApplicationContext(), callingActivity, mZipCode);
                 task.execute();
 
 
@@ -140,7 +144,9 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
                 return true;
 
             case R.id.setAlarmIcon:
+                // Todo: resolve case of no or invalid zipcode
                 Intent setAlarmActionIntent = new Intent(this, NewAlarmActivity.class);
+                setAlarmActionIntent.putExtra("zipCode", mZipCode);
                 startActivity(setAlarmActionIntent);
                 return true;
 

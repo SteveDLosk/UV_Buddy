@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">UV_Buddy</string>
     <string name="epaScaleUri">https://www.epa.gov/sunsafety/uv-index-scale-1</string>
+
+    <string name="currentUV_IndexStr">Current UV index:</string>
+    <string name="notifyMeStr">Notify me when the UV index becomes:</string>
+    <string name="setAlarmButtonStr">Set Alarm!</string>
+
+
+    <!-- App Bar icons -->
+    <string name="setAlarmIcon">Set an alarm</string>
 </resources>

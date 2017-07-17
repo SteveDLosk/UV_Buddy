@@ -139,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
 
+            case R.id.setAlarmIcon:
+                Intent setAlarmActionIntent = new Intent(this, NewAlarmActivity.class);
+                startActivity(setAlarmActionIntent);
+                return true;
+
             default:
                 return true;
         }

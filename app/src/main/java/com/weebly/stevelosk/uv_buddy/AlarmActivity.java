@@ -1,5 +1,6 @@
 package com.weebly.stevelosk.uv_buddy;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,7 +14,7 @@ import java.util.Calendar;
  * Schedules a recurring UV index check
  */
 
-public class AlarmActivity {
+public class AlarmActivity extends Activity {
 
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
@@ -22,7 +23,7 @@ public class AlarmActivity {
     private Calendar mCalandar;
 
     // instance variables for index data
-    priavte boolean hasHitTargetIndex;
+    private boolean hasHitTargetIndex;
     private boolean alertWhenLowEnough;
     private boolean alertWhenTooHigh;
     private Integer mTargetIndex;
@@ -50,8 +51,8 @@ public class AlarmActivity {
         }
 
 
-        Intent intent = new Intent(mContext, new AlarmReceiver(mZipcode, mCurrentIndex));
-        alarmIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
+       // Intent intent = new Intent(mContext, new AlarmReceiver.class(mZipcode, mCurrentIndex));
+       // alarmIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
 
         /*
         // Set the alarm to start at 8:30 a.m.

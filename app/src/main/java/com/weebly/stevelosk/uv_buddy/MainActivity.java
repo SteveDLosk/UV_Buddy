@@ -1,13 +1,18 @@
 package com.weebly.stevelosk.uv_buddy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,26 +20,40 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements iAsyncCalling {
 
     private TextView resultTextView;
     private TextView UV_indexDescriptionTextView;
     private EditText enterZipCodeEditText;
     private Button getUV_withZipCodeButton;
     private Button getUV_withLocationButton;
+    private Toolbar mActionBar;
+
+    private Integer[] uviArray;
 
     private String TAG = "Main Activity";
+    private Resources res;
 
+    private String mZipCode;
+
+
+    // TODO: credit wunderground API!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mActionBar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(mActionBar);
+
+        res = getResources();
 
         resultTextView = (TextView) findViewById(R.id.resultTextView);
         UV_indexDescriptionTextView = (TextView) findViewById(R.id.UV_indexDescriptionTextView);
         enterZipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
         getUV_withZipCodeButton = (Button) findViewById(R.id.getUV_withZipCodeButton);
         getUV_withLocationButton = (Button) findViewById(R.id.getUV_withLocationButton);
+
+        mActionBar.inflateMenu(R.menu.menu);
 
         // Button Click listener
         getUV_withZipCodeButton.setOnClickListener(new View.OnClickListener() {
@@ -46,44 +65,103 @@ public class MainActivity extends AppCompatActivity {
                 Integer currentUV_index = -1;
 
                 // pass in current zipCode and hour
-                String zipCode = enterZipCodeEditText.getText().toString();
+                mZipCode = enterZipCodeEditText.getText().toString();
 
                 // get current hour
                 String hour = getTime();
+
+                // commented out old async task /*
+                /*
                 GetUV_IndexAsync task = new GetUV_IndexAsync(
                         callingActivity, zipCode, hour);
                 task.execute();
+                */
+
+                GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
+                        getApplicationContext(), callingActivity, mZipCode);
+                task.execute();
+
 
             }
         });
     }
 
-    protected void update(Integer index) {
-        Log.i(TAG, "entered update");
-        Log.i(TAG, String.valueOf(index));
-        try {
-            resultTextView.setText(index.toString());
-            // Get resources
-            Resources res = getResources();
-
-            // Get description
-            String[] desc_array = res.getStringArray(R.array.UV_index_description_array);
-            String description = desc_array[index];
-            UV_indexDescriptionTextView.setText(description);
-
-            // set background color
-            updateColor(index, res);
-
-
+    protected void updateArray(Integer[] data) {
+        this.uviArray = data;
+        Log.i(TAG, "Array data: ");
+        for (int i = 0; i < 24; i++) {
+            Log.i(TAG, uviArray[i].toString());
         }
-        catch (NullPointerException e) {
-            // clear old index number
-            resultTextView.setText("Something\nwent\nwrong");
-            // clear old index color and info
-            UV_indexDescriptionTextView.setText("");
-            resultTextView.setBackgroundColor(Color.WHITE);
+    }
 
+    public void update(Integer index) {
+
+        if (index == -1) {
+            // got here because there was an error
+            reportErrorToUser();
+
+        } else {
+            try {
+                resultTextView.setText(index.toString());
+                // Get resources
+                Resources res = getResources();
+
+                // Get description
+                String[] desc_array = res.getStringArray(R.array.UV_index_description_array);
+                String description = desc_array[index];
+                UV_indexDescriptionTextView.setText(description);
+
+                // set background color
+                updateColor(index, res);
+
+
+            } catch (NullPointerException e) {
+                reportErrorToUser();
+            }
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.showEpaScale:
+                // User chose the "Settings" item, show the app settings UI...
+                // Launch EPA scale
+
+                String uriString = res.getString(R.string.epaScaleUri);
+                Uri webUri = Uri.parse(uriString);
+                Intent navToEpaIntent = new Intent(Intent.ACTION_VIEW);
+                navToEpaIntent.setData(webUri);
+                startActivity(navToEpaIntent);
+
+                return true;
+
+            case R.id.setAlarmIcon:
+                // Todo: resolve case of no or invalid zipcode
+                Intent setAlarmActionIntent = new Intent(this, NewAlarmActivity.class);
+                setAlarmActionIntent.putExtra("zipCode", mZipCode);
+                startActivity(setAlarmActionIntent);
+                return true;
+
+            default:
+                return true;
+        }
+    }
+
+    private void reportErrorToUser() {
+        // clear old index number
+        resultTextView.setText("Something\nwent\nwrong");
+        // clear old index color and info
+        UV_indexDescriptionTextView.setText("");
+        resultTextView.setBackgroundColor(Color.WHITE);
+
     }
 
     private String getTime () {
@@ -128,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         return hourString;
     }
 
-    protected void reportLoading () {
+    public void reportLoading () {
         resultTextView.setText("loading");
     }
 

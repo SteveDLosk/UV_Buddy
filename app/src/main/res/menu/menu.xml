@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Top bar navigation menu-->
+
+    <!-- "Set alarm" -->
+    <item
+        android:id="@+id/setAlarmIcon"
+        android:icon="@mipmap/ic_alarm_black_24dp"
+        android:title="@string/setAlarmIcon"
+        app:showAsAction="ifRoom" />
+
+
+    <!-- "Show EPA scale", should appear as action button if possible -->
+    <item
+        android:id="@+id/showEpaScale"
+
+        android:icon="@mipmap/ic_wb_sunny_black_24dp"
+        android:title="@string/epaScaleUri"
+        app:showAsAction="ifRoom"/>
+
+</menu>

@@ -6,6 +6,8 @@
     <string name="notifyMeStr">Notify me when the UV index becomes:</string>
     <string name="setAlarmButtonStr">Set Alarm!</string>
 
+    <string name="loading">loading...</string>
+
 
     <!-- App Bar icons -->
     <string name="setAlarmIcon">Set an alarm</string>

@@ -31,18 +31,21 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         mZipCode = callingIntent.getStringExtra("zipCode");
 
         // get current index
-        GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
-                mContext, this, mZipCode);
-        task.execute();
+        if (mZipCode != null) {
+            GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
+                    mContext, this, mZipCode);
+            task.execute();
+        }
     }
 
     @Override
     public void update(Integer result) {
 
+        mCurrentIndexTextView.setText(result.toString());
     }
 
     @Override
     public void reportLoading() {
-
+        mCurrentIndexTextView.setText(R.string.loading);
     }
 }

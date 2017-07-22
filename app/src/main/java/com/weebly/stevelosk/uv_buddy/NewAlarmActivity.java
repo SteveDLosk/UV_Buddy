@@ -1,20 +1,34 @@
 package com.weebly.stevelosk.uv_buddy;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.GregorianCalendar;
 
 public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling {
 
+    private final String TAG = "NewAlarmActivity";
     private TextView mCurrentIndexTextView;
     private Spinner mSelectIndexSpinner;
     private Button mSetAlarmButton;
     private String mZipCode;
     private Context mContext;
+
+    // alarm stuff
+    private AlarmManager mAlarmManager;
+    private PendingIntent pendingIntent;
+    private final long TWO_MINUTES = 2 * 60 * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +40,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         mSelectIndexSpinner = (Spinner) findViewById(R.id.setAlarmSelectSpinner);
         mSetAlarmButton = (Button) findViewById(R.id.setAlarmButton);
 
+        // Get current UV index, this is a point of reference for the alarm parameters
         // Bring in zipcode
         Intent callingIntent = getIntent();
         mZipCode = callingIntent.getStringExtra("zipCode");
@@ -36,6 +51,37 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
                     mContext, this, mZipCode);
             task.execute();
         }
+
+        // Button handler to set alarm
+        mSetAlarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                scheduleAlarm();
+            }
+        });
+    }
+
+    public void scheduleAlarm()
+    {
+        // The time at which the alarm will be scheduled. Here the alarm is scheduled for 1 day from the current time.
+        // We fetch the current time in milliseconds and add time
+        // i.e. 24*60*60*1000 = 86,400,000 milliseconds in a day.
+        Long time = new GregorianCalendar().getTimeInMillis()+TWO_MINUTES;
+
+        // Create an Intent and set the class that will execute when the Alarm triggers. Here we have
+        // specified AlarmReceiver in the Intent. The onReceive() method of this class will execute when the broadcast from your alarm is received.
+        Intent intentAlarm = new Intent(this, NotificationTestActivity.class);
+
+        // Get the Alarm Service.
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // Set the alarm for a particular time.
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm,
+                PendingIntent.FLAG_UPDATE_CURRENT));
+
+        // TODO: set repeating?
+        Toast.makeText(this, "Alarm Scheduled for two minutes", Toast.LENGTH_LONG).show();
     }
 
     @Override

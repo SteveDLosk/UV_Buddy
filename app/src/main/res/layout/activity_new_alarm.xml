@@ -52,7 +52,7 @@
 
         <ImageView
             android:id="@+id/mainActivityLogo"
-            android:src="@drawable/wundergroundLogo_4c_horz"
+            android:src="@drawable/wunderground_logo_4c_horz"
             android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="100dp" />

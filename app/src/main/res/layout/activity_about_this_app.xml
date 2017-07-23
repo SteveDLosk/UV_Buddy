@@ -39,7 +39,7 @@
 
         <ImageView
             android:id="@+id/wundergroundImg"
-            android:src="@drawable/wundergroundLogo_4c"
+            android:src="@drawable/wunderground_logo_4c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

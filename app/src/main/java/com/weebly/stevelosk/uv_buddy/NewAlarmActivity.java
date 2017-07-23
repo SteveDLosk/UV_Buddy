@@ -45,12 +45,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         Intent callingIntent = getIntent();
         mZipCode = callingIntent.getStringExtra("zipCode");
 
-        // get current index
-        if (mZipCode != null) {
-            GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
-                    mContext, this, mZipCode);
-            task.execute();
-        }
+        checkUV_Index();
 
         // Button handler to set alarm
         mSetAlarmButton.setOnClickListener(new View.OnClickListener() {
@@ -58,12 +53,14 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
             public void onClick(View view) {
 
                 scheduleAlarm();
+
             }
         });
     }
 
-    public void scheduleAlarm()
+    private void scheduleAlarm()
     {
+
         // The time at which the alarm will be scheduled. Here the alarm is scheduled for 1 day from the current time.
         // We fetch the current time in milliseconds and add time
         // i.e. 24*60*60*1000 = 86,400,000 milliseconds in a day.
@@ -76,9 +73,9 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         // Get the Alarm Service.
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        // Set the alarm for a particular time.
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm,
-                PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time,
+                TWO_MINUTES, PendingIntent.getBroadcast(this, 1, intentAlarm,
+                        PendingIntent.FLAG_UPDATE_CURRENT));
 
         // TODO: set repeating?
         Toast.makeText(this, "Alarm Scheduled for two minutes", Toast.LENGTH_LONG).show();
@@ -88,6 +85,16 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     public void update(Integer result) {
 
         mCurrentIndexTextView.setText(result.toString());
+
+    }
+
+    private void checkUV_Index () {
+        // get current index
+        if (mZipCode != null) {
+            GetUV_IndexAsync2 task = new GetUV_IndexAsync2(
+                    mContext, this, mZipCode);
+            task.execute();
+        }
     }
 
     @Override

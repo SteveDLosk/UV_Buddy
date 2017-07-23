@@ -11,4 +11,6 @@
 
     <!-- App Bar icons -->
     <string name="setAlarmIcon">Set an alarm</string>
+    <string name="epaScaleString">The EPA scale</string>
+    <string name="aboutThisAppString">About this app</string>
 </resources>

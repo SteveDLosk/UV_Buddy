@@ -29,6 +29,9 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     private AlarmManager mAlarmManager;
     private PendingIntent pendingIntent;
     private final long TWO_MINUTES = 2 * 60 * 1000;
+    private final long TWENTY_MINUTES = 20 * 60 * 1000;
+    private final long HALF_HOUR = 30 * 60 * 1000;
+    private final long HOUR = 60 * 60 * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time,
-                TWO_MINUTES, PendingIntent.getBroadcast(this, 1, intentAlarm,
+                TWENTY_MINUTES, PendingIntent.getBroadcast(this, 1, intentAlarm,
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
         // TODO: set repeating?

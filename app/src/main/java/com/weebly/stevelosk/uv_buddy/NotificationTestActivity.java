@@ -71,9 +71,9 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
         uvIndex = result;
 
         //TODO: logic for whether to alert the user with a notification
-        // if (shouldAlert) {...
+         if (result < 4) {
         createNotification();
-        // }
+         }
 
     }
 

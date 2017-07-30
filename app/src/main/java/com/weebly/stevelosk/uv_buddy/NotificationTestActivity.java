@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class NotificationTestActivity extends BroadcastReceiver implements iAsyncCalling {
 
-    private String zipCode = "98391";
+    private String zipCode;
     private Integer uvIndex;
     private String TAG = "NotifTestActivity";
     private Context mContext;
@@ -33,6 +33,11 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
         targetIndex = intent.getIntExtra("targetIndex", -1);
         needsToBeLower = intent.getBooleanExtra("needsToBeLower", false);
         zipCode = intent.getStringExtra("zipCode");
+
+        // Testing
+        Log.i(TAG, Integer.toString(targetIndex));
+        Log.i(TAG, Boolean.toString(needsToBeLower));
+        Log.i(TAG, zipCode);
 
         // This checks the index.  The result is passed to update.  From update, if the
         // index meets the logic requirements, a notification is created and fired.
@@ -68,8 +73,10 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
         Log.i(TAG, "entered update");
         uvIndex = result;
 
-        //TODO: logic for whether to alert the user with a notification
-         if (result < 4) {
+        // logic for whether to alert the user with a notification
+        // compares result to targetIndex, and whether it should be greater or less
+         if (result <= targetIndex && needsToBeLower  ||
+                 result >= targetIndex && !needsToBeLower) {
         createNotification();
          }
 

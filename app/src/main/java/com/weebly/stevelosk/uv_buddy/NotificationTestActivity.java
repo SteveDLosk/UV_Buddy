@@ -20,26 +20,24 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
     private NotificationManager notificationManager;
     private Notification.Builder builder;
 
+    // evaluation logic
+    private boolean needsToBeLower;
+    private int targetIndex;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        // Saves the application context, then checks the index.
+        // Saves the application context, get the data, and sets the logic
         mContext = context;
+        targetIndex = intent.getIntExtra("targetIndex", -1);
+        needsToBeLower = intent.getBooleanExtra("needsToBeLower", false);
+        zipCode = intent.getStringExtra("zipCode");
+
         // This checks the index.  The result is passed to update.  From update, if the
         // index meets the logic requirements, a notification is created and fired.
         checkIndex();
     }
-    /*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_notification_test);
-
-        checkIndex();
-
-    }
-    */
 
     private void createNotification () {
         Log.i(TAG, "entered createNotification");

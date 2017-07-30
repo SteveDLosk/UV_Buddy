@@ -33,6 +33,11 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     private final long HALF_HOUR = 30 * 60 * 1000;
     private final long HOUR = 60 * 60 * 1000;
 
+    // logic testing stuff for the notification
+    private int currentIndex;
+    private int targetIndex;
+    private boolean needsToBeLower;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +69,18 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     private void scheduleAlarm()
     {
 
-        // The time at which the alarm will be scheduled. Here the alarm is scheduled for 1 day from the current time.
-        // We fetch the current time in milliseconds and add time
-        // i.e. 24*60*60*1000 = 86,400,000 milliseconds in a day.
+        // The time at which the alarm will be scheduled.
         Long time = new GregorianCalendar().getTimeInMillis()+TWO_MINUTES;
 
         // Create an Intent and set the class that will execute when the Alarm triggers. Here we have
         // specified AlarmReceiver in the Intent. The onReceive() method of this class will execute when the broadcast from your alarm is received.
         Intent intentAlarm = new Intent(this, NotificationTestActivity.class);
+
+        // pass in zipcode, targetIndex, and logical notice
+        intentAlarm.putExtra("zipCode", mZipCode);
+        intentAlarm.putExtra("targetIndex", targetIndex);
+        setLogic();
+        intentAlarm.putExtra("needsToBeLower", needsToBeLower);
 
         // Get the Alarm Service.
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -80,8 +89,6 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
                 TWENTY_MINUTES, PendingIntent.getBroadcast(this, 1, intentAlarm,
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
-        // TODO: set repeating?
-        Toast.makeText(this, "Alarm Scheduled for two minutes", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -98,6 +105,13 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
                     mContext, this, mZipCode);
             task.execute();
         }
+    }
+
+    private void setLogic () {
+        if (currentIndex > targetIndex) {
+            needsToBeLower = true;
+        }
+        else needsToBeLower = false;
     }
 
     @Override

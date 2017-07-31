@@ -4,16 +4,20 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.GregorianCalendar;
 
 public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling {
@@ -24,6 +28,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     private Button mSetAlarmButton;
     private String mZipCode;
     private Context mContext;
+    private String[] spinnerIndicies;
 
     // alarm stuff
     private AlarmManager mAlarmManager;
@@ -44,8 +49,27 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         setContentView(R.layout.activity_new_alarm);
         mContext = getApplicationContext();
 
+        // values for the spinner
+        Resources res = getResources();
+        spinnerIndicies = res.getStringArray(R.array.uvValuesArray);
+
         mCurrentIndexTextView = (TextView) findViewById(R.id.setAlarmCurrentIndexTextView);
         mSelectIndexSpinner = (Spinner) findViewById(R.id.setAlarmSelectSpinner);
+        mSelectIndexSpinner.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, spinnerIndicies));
+        mSelectIndexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),
+                        spinnerIndicies[i], Toast.LENGTH_SHORT).show();
+                targetIndex = Integer.parseInt(spinnerIndicies[i]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         mSetAlarmButton = (Button) findViewById(R.id.setAlarmButton);
 
         // Get current UV index, this is a point of reference for the alarm parameters
@@ -89,12 +113,25 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
                 TWENTY_MINUTES, PendingIntent.getBroadcast(this, 1, intentAlarm,
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
+        // Testing, labeling alarm specs
+        String alarmToastStr = "Alarm set for zipcode " + mZipCode;
+        if (needsToBeLower) {
+            alarmToastStr += " when the UV index falls to " + Integer.toString(targetIndex);
+        }
+        else {
+            alarmToastStr += " when the UV index climbs to " + Integer.toString(targetIndex);
+
+        }
+        Toast.makeText(getApplicationContext(),
+                alarmToastStr, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void update(Integer result) {
 
         mCurrentIndexTextView.setText(result.toString());
+        currentIndex = result;
 
     }
 

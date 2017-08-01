@@ -23,6 +23,7 @@ import java.util.GregorianCalendar;
 public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling {
 
     private final String TAG = "NewAlarmActivity";
+    private TextView mCurrentZipCodeTextView;
     private TextView mCurrentIndexTextView;
     private Spinner mSelectIndexSpinner;
     private Button mSetAlarmButton;
@@ -53,6 +54,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         Resources res = getResources();
         spinnerIndicies = res.getStringArray(R.array.uvValuesArray);
 
+        mCurrentZipCodeTextView = (TextView) findViewById(R.id.setAlarmCurrentZipCodeTextView);
         mCurrentIndexTextView = (TextView) findViewById(R.id.setAlarmCurrentIndexTextView);
         mSelectIndexSpinner = (Spinner) findViewById(R.id.setAlarmSelectSpinner);
         mSelectIndexSpinner.setAdapter(new ArrayAdapter<String>(this,
@@ -76,6 +78,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         // Bring in zipcode
         Intent callingIntent = getIntent();
         mZipCode = callingIntent.getStringExtra("zipCode");
+        mCurrentZipCodeTextView.setText(mZipCode);
 
         checkUV_Index();
 

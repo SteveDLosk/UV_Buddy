@@ -62,8 +62,6 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         mSelectIndexSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),
-                        spinnerIndicies[i], Toast.LENGTH_SHORT).show();
                 targetIndex = Integer.parseInt(spinnerIndicies[i]);
             }
 
@@ -126,7 +124,7 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
 
         }
         Toast.makeText(getApplicationContext(),
-                alarmToastStr, Toast.LENGTH_SHORT).show();
+                alarmToastStr, Toast.LENGTH_LONG).show();
 
     }
 

@@ -33,6 +33,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"/>
 
+    <ImageView
+        android:id="@+id/mainActivityLogo"
+        android:src="@drawable/wunderground_logo_4c_horz"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
     <EditText
         android:id="@+id/zipCodeEditText"
         android:layout_width="match_parent"

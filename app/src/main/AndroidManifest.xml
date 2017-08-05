@@ -11,6 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".NotificationTestActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".ApiTestActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -19,7 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewAlarmActivity"></activity>
+        <activity android:name=".NewAlarmActivity" />
+        <activity android:name=".NotificationTestActivity" />
+        <activity android:name=".AboutThisAppActivity"></activity>
     </application>
 
 </manifest>

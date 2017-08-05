@@ -7,11 +7,36 @@
     tools:context="com.weebly.stevelosk.uv_buddy.NewAlarmActivity"
     android:orientation="vertical">
 
-    <!-- Top layout, displays current index -->
+    <!-- Top layout, displays current index and zipcode-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="2">
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/currentZipCodeStr"/>
+
+            <TextView
+            android:id="@+id/setAlarmCurrentZipCodeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""/>
+
+        </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -28,6 +53,7 @@
             android:gravity="center"
             android:text=""/>
 
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Middle layout sets notification index -->
@@ -44,11 +70,18 @@
 
         <Spinner
             android:id="@+id/setAlarmSelectSpinner"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:gravity="center"
-            android:layout_height="wrap_content">
+            android:layout_height="100dp">
 
         </Spinner>
+
+        <ImageView
+            android:id="@+id/mainActivityLogo"
+            android:src="@drawable/wunderground_logo_4c_horz"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
     </LinearLayout>
 

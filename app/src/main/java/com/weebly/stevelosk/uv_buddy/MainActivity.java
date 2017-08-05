@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
     private String mZipCode;
 
 
-    // TODO: credit wunderground API!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +147,11 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
                 Intent setAlarmActionIntent = new Intent(this, NewAlarmActivity.class);
                 setAlarmActionIntent.putExtra("zipCode", mZipCode);
                 startActivity(setAlarmActionIntent);
+                return true;
+
+            case R.id.showAboutThisApp:
+                Intent showAboutIntent = new Intent(this, AboutThisAppActivity.class);
+                startActivity(showAboutIntent);
                 return true;
 
             default:

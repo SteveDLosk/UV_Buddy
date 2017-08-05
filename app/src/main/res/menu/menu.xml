@@ -16,7 +16,14 @@
         android:id="@+id/showEpaScale"
 
         android:icon="@mipmap/ic_wb_sunny_black_24dp"
-        android:title="@string/epaScaleUri"
+        android:title="@string/epaScaleString"
         app:showAsAction="ifRoom"/>
+
+    <!-- About this app  -->
+    <item
+        android:id="@+id/showAboutThisApp"
+
+        android:title="@string/aboutThisAppString"
+        app:showAsAction="never"/>
 
 </menu>

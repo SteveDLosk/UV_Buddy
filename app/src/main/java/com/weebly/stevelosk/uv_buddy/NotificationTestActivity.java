@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import static android.content.Context.ALARM_SERVICE;
+
 public class NotificationTestActivity extends BroadcastReceiver implements iAsyncCalling {
 
     private String zipCode;

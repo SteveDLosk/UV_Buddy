@@ -1,7 +1,9 @@
 package com.weebly.stevelosk.uv_buddy;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,7 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
     private int notificationID;
     private NotificationManager notificationManager;
     private Notification.Builder builder;
+    private Intent callingIntent;
 
     // evaluation logic
     private boolean needsToBeLower;
@@ -33,11 +36,8 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
         targetIndex = intent.getIntExtra("targetIndex", -1);
         needsToBeLower = intent.getBooleanExtra("needsToBeLower", false);
         zipCode = intent.getStringExtra("zipCode");
+        callingIntent = intent;
 
-        // Testing
-        Log.i(TAG, Integer.toString(targetIndex));
-        Log.i(TAG, Boolean.toString(needsToBeLower));
-        Log.i(TAG, zipCode);
 
         // This checks the index.  The result is passed to update.  From update, if the
         // index meets the logic requirements, a notification is created and fired.
@@ -75,11 +75,24 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
 
         // logic for whether to alert the user with a notification
         // compares result to targetIndex, and whether it should be greater or less
+
+
          if (result <= targetIndex && needsToBeLower  ||
                  result >= targetIndex && !needsToBeLower) {
-        createNotification();
+
+            createNotification();
+                // Cancel alarm
+                cancelAlarm();
+
          }
 
+    }
+
+    private void cancelAlarm () {
+        PendingIntent sender = PendingIntent.getBroadcast(mContext, 1, callingIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
+        alarmManager.cancel(sender);
     }
 
     @Override

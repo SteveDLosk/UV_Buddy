@@ -18,5 +18,7 @@
 
     <!-- Credits -->
     <string name="api_data_source_str">The weather data for my app comes from weather underground.</string>
-    <string name="about_me_str"></string>
+    <string name="copyright_str">UV Buddy 1.0
+© 2017 Steve Losk
+</string>
 </resources>

@@ -14,4 +14,9 @@
     <string name="setAlarmIcon">Set an alarm</string>
     <string name="epaScaleString">The EPA scale</string>
     <string name="aboutThisAppString">About this app</string>
+
+
+    <!-- Credits -->
+    <string name="api_data_source_str">The weather data for my app comes from weather underground.</string>
+    <string name="about_me_str"></string>
 </resources>

@@ -24,4 +24,8 @@
     <string name="privacy1_str">Privacy Policy:</string>
     <string name="privacy2_str">No personal information is collected or stored from the user via this app.  The zip code you provide is submitted over the internet to the data source below, and the present conditions for that zip code are returned.  No personally identifying or device-identifying data are collected or tracked by this app.
 </string>
+
+
+    <!-- Image descriptions (for accessibility -->
+    <string name="wunderGroundLogoDesc">The logo for Weather Underground, the web service which provides the data</string>
 </resources>

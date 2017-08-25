@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
                 return true;
 
             case R.id.setAlarmIcon:
-                // Todo: resolve case of no or invalid zipcode
                 Intent setAlarmActionIntent = new Intent(this, NewAlarmActivity.class);
                 setAlarmActionIntent.putExtra("zipCode", mZipCode);
                 startActivity(setAlarmActionIntent);

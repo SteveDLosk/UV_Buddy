@@ -64,12 +64,15 @@
             android:layout_height="wrap_content"
             android:text="Get UV with my Zipcode"/>
 
+        <!--
         <Button
             android:id="@+id/getUV_withLocationButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Use my location to get UV index"/>
+
+            -->
     </LinearLayout>
 
 </LinearLayout>

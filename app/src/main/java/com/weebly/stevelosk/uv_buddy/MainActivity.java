@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
         UV_indexDescriptionTextView = (TextView) findViewById(R.id.UV_indexDescriptionTextView);
         enterZipCodeEditText = (EditText) findViewById(R.id.zipCodeEditText);
         getUV_withZipCodeButton = (Button) findViewById(R.id.getUV_withZipCodeButton);
-        getUV_withLocationButton = (Button) findViewById(R.id.getUV_withLocationButton);
+        //getUV_withLocationButton = (Button) findViewById(R.id.getUV_withLocationButton);
 
         mActionBar.inflateMenu(R.menu.menu);
 

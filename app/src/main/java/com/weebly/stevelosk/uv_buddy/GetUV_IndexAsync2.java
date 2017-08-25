@@ -43,8 +43,8 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
         Boolean errors = false;
 
         // testing for a valid zipcode before sending query
-        if (mZipCode.length() < 5) {
-            // indicates error
+        boolean isValid = ZipCode.isValidZipCode(mZipCode);
+        if (!isValid) {
             return -1;
         }
 

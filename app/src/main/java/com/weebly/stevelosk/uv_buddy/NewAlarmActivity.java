@@ -85,7 +85,16 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
             @Override
             public void onClick(View view) {
 
-                scheduleAlarm();
+                // check for valid ZipCode before scheduling alarm
+                if (ZipCode.isValidZipCode(mZipCode) ) {
+                    scheduleAlarm();
+                }
+                else {
+
+                    // Report to user ZipCode will not work
+                    Toast.makeText(getApplicationContext(),
+                            R.string.invalidZipCodeStr, Toast.LENGTH_LONG).show();
+                }
 
             }
         });

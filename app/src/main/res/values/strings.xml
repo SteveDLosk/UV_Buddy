@@ -8,7 +8,7 @@
     <string name="setAlarmButtonStr">Set Alarm</string>
 
     <string name="loading">loading...</string>
-
+    <string name="invalidZipCodeStr">The current ZipCode is invalid.  Please re-enter.</string>
 
     <!-- App Bar icons -->
     <string name="setAlarmIcon">Set an alarm</string>

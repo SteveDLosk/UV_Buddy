@@ -131,7 +131,13 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     @Override
     public void update(Integer result) {
 
-        mCurrentIndexTextView.setText(result.toString());
+        // handle errors
+        if (result == -1) {
+            mCurrentIndexTextView.setText("-----");
+        }
+        else {
+            mCurrentIndexTextView.setText(result.toString());
+        }
         currentIndex = result;
 
     }

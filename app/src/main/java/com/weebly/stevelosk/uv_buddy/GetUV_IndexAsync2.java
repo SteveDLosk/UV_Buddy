@@ -75,14 +75,10 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line + "\n");
-                Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
             }
 
             jsonReturned = buffer.toString();
-            Log.i(TAG, "Here is the JSON:");
-            Log.i(TAG, jsonReturned);
-
 
 
         } catch (MalformedURLException e) {
@@ -111,8 +107,7 @@ public class GetUV_IndexAsync2 extends AsyncTask <String, Void, Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
-        Log.i(TAG, "entered onPostExecute");
-        mActivity.update(result);
+       mActivity.update(result);
     }
 
 }

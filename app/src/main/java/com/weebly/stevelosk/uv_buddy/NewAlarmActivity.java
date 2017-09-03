@@ -54,8 +54,9 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         Resources res = getResources();
         spinnerIndicies = res.getStringArray(R.array.uvValuesArray);
 
-        mCurrentZipCodeTextView = (TextView) findViewById(R.id.setAlarmCurrentZipCodeTextView);
+
         mCurrentIndexTextView = (TextView) findViewById(R.id.setAlarmCurrentIndexTextView);
+        mCurrentZipCodeTextView = (TextView) findViewById(R.id.setAlarmCurrentZipCodeTextView);
         mSelectIndexSpinner = (Spinner) findViewById(R.id.setAlarmSelectSpinner);
         mSelectIndexSpinner.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, spinnerIndicies));
@@ -76,7 +77,13 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         // Bring in zipcode
         Intent callingIntent = getIntent();
         mZipCode = callingIntent.getStringExtra("zipCode");
-        mCurrentZipCodeTextView.setText(mZipCode);
+
+        if (mZipCode != null) {
+
+            mCurrentZipCodeTextView.setText(mZipCode);
+            String txt = mCurrentZipCodeTextView.getText().toString();
+            Log.i(TAG, txt);
+        }
 
         checkUV_Index();
 

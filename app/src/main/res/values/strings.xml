@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UV_Buddy</string>
+    <string name="app_name">UV Buddy</string>
     <string name="epaScaleUri">https://www.epa.gov/sunsafety/uv-index-scale-1</string>
 
     <string name="currentZipCodeStr">Current Zipcode:</string>

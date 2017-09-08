@@ -54,8 +54,9 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         Resources res = getResources();
         spinnerIndicies = res.getStringArray(R.array.uvValuesArray);
 
-        mCurrentZipCodeTextView = (TextView) findViewById(R.id.setAlarmCurrentZipCodeTextView);
+
         mCurrentIndexTextView = (TextView) findViewById(R.id.setAlarmCurrentIndexTextView);
+        mCurrentZipCodeTextView = (TextView) findViewById(R.id.setAlarmCurrentZipCodeTextView);
         mSelectIndexSpinner = (Spinner) findViewById(R.id.setAlarmSelectSpinner);
         mSelectIndexSpinner.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, spinnerIndicies));
@@ -76,7 +77,13 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
         // Bring in zipcode
         Intent callingIntent = getIntent();
         mZipCode = callingIntent.getStringExtra("zipCode");
-        mCurrentZipCodeTextView.setText(mZipCode);
+
+        if (mZipCode != null) {
+
+            mCurrentZipCodeTextView.setText(mZipCode);
+            String txt = mCurrentZipCodeTextView.getText().toString();
+            Log.i(TAG, txt);
+        }
 
         checkUV_Index();
 
@@ -85,7 +92,16 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
             @Override
             public void onClick(View view) {
 
-                scheduleAlarm();
+                // check for valid ZipCode before scheduling alarm
+                if (ZipCode.isValidZipCode(mZipCode) ) {
+                    scheduleAlarm();
+                }
+                else {
+
+                    // Report to user ZipCode will not work
+                    Toast.makeText(getApplicationContext(),
+                            R.string.invalidZipCodeStr, Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -131,7 +147,13 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
     @Override
     public void update(Integer result) {
 
-        mCurrentIndexTextView.setText(result.toString());
+        // handle errors
+        if (result == -1) {
+            mCurrentIndexTextView.setText("-----");
+        }
+        else {
+            mCurrentIndexTextView.setText(result.toString());
+        }
         currentIndex = result;
 
     }

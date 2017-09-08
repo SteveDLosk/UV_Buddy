@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">UV_Buddy</string>
+    <string name="app_name">UV Buddy</string>
     <string name="epaScaleUri">https://www.epa.gov/sunsafety/uv-index-scale-1</string>
 
     <string name="currentZipCodeStr">Current Zipcode:</string>
     <string name="currentUV_IndexStr">Current UV index:</string>
     <string name="notifyMeStr">Notify me when the UV index becomes:</string>
-    <string name="setAlarmButtonStr">Set Alarm!</string>
+    <string name="setAlarmButtonStr">Set Alarm</string>
 
     <string name="loading">loading...</string>
-
+    <string name="invalidZipCodeStr">The current ZipCode is invalid.  Please re-enter.</string>
 
     <!-- App Bar icons -->
     <string name="setAlarmIcon">Set an alarm</string>
@@ -18,9 +18,8 @@
 
     <!-- Credits -->
     <string name="api_data_source_str">The weather data for my app comes from weather underground.</string>
-    <string name="copyright_str">UV Buddy 1.0
-© 2017 Steve Losk
-</string>
+    <string name="copyright_str">UV Buddy 1.0 © 2017 Steve Losk</string>
+    <string name="artCredit">App icon art by Izabelle Eyerly</string>
     <string name="privacy1_str">Privacy Policy:</string>
     <string name="privacy2_str">No personal information is collected or stored from the user via this app.  The zip code you provide is submitted over the internet to the data source below, and the present conditions for that zip code are returned.  No personally identifying or device-identifying data are collected or tracked by this app.
 </string>

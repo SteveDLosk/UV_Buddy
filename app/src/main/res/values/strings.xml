@@ -18,9 +18,8 @@
 
     <!-- Credits -->
     <string name="api_data_source_str">The weather data for my app comes from weather underground.</string>
-    <string name="copyright_str">UV Buddy 1.0
-© 2017 Steve Losk
-</string>
+    <string name="copyright_str">UV Buddy 1.0 © 2017 Steve Losk</string>
+    <string name="artCredit">App icon art by Izabelle Eyerly</string>
     <string name="privacy1_str">Privacy Policy:</string>
     <string name="privacy2_str">No personal information is collected or stored from the user via this app.  The zip code you provide is submitted over the internet to the data source below, and the present conditions for that zip code are returned.  No personally identifying or device-identifying data are collected or tracked by this app.
 </string>

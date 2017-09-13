@@ -3,7 +3,6 @@ package com.weebly.stevelosk.uv_buddy;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;

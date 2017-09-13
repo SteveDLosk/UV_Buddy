@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -47,7 +46,6 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
     }
 
     private void createNotification () {
-        Log.i(TAG, "entered createNotification");
         builder =
                 new Notification.Builder(mContext)
                 .setSmallIcon(R.mipmap.ic_alarm_black_24dp)
@@ -62,7 +60,6 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
 
     private void checkIndex () {
 
-        Log.i(TAG, "entered checkIndex");
         iAsyncCalling callingActivity = NotificationTestActivity.this;
 
         GetUV_IndexAsync2 task = new GetUV_IndexAsync2 (mContext, callingActivity, zipCode);
@@ -72,7 +69,6 @@ public class NotificationTestActivity extends BroadcastReceiver implements iAsyn
 
     @Override
     public void update(Integer result) {
-        Log.i(TAG, "entered update");
         uvIndex = result;
 
         // logic for whether to alert the user with a notification

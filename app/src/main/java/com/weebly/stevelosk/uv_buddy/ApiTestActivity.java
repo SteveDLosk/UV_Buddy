@@ -3,7 +3,6 @@ package com.weebly.stevelosk.uv_buddy;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,8 +66,6 @@ public class ApiTestActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
 
-        Log.i(TAG, Integer.toString(hour));
-
         // Format for AM / PM
         if (hour >= 12) {
             PM = true;
@@ -102,7 +99,6 @@ public class ApiTestActivity extends AppCompatActivity {
             hourString += "AM";
         }
 
-        Log.i(TAG, hourString);
         return hourString;
     }
 }

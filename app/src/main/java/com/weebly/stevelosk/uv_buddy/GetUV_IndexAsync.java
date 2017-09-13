@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Looper;
 import android.util.JsonReader;
-import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
@@ -69,7 +68,6 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
         baseUriString += mZipCode;
         baseUriString += "/JSON";
 
-        Log.i(TAG, baseUriString);
 
         // Get JSON
 
@@ -88,13 +86,10 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line + "\n");
-                Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
             }
 
             String jsonReturned = buffer.toString();
-            Log.i(TAG, "Here is the JSON:");
-            Log.i(TAG, jsonReturned);
 
             // get UV index integer from json
 
@@ -143,7 +138,6 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
                 e.printStackTrace();
             }
         }
-        Log.d(TAG, "something went wrong");
         return null;
     }
 
@@ -151,7 +145,6 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
     @Override
     protected void onPostExecute(Integer result) {
 
-        Log.i(TAG, "entered onPostExecute");
 
         mActivity.update(result);
 
@@ -163,13 +156,12 @@ public class GetUV_IndexAsync extends AsyncTask <String, Void, Integer> {
 
     private void reportProblem () {
         // Apparently I have to do this
-        Log.i(TAG, "entered reportProblem");
 
 
     }
 
     private void reportProblem (Exception e) {
-        Log.i(TAG, e.getMessage().toString());
+
     }
 
 

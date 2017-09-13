@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -82,7 +81,6 @@ public class NewAlarmActivity extends AppCompatActivity implements iAsyncCalling
 
             mCurrentZipCodeTextView.setText(mZipCode);
             String txt = mCurrentZipCodeTextView.getText().toString();
-            Log.i(TAG, txt);
         }
 
         checkUV_Index();

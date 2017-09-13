@@ -10,7 +10,6 @@ import android.support.annotation.ArrayRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -86,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements iAsyncCalling {
     }
 
     protected void updateArray(Integer[] data) {
+        // removed Log calls.  Not sure what this method is for anymore.
         this.uviArray = data;
-        Log.i(TAG, "Array data: ");
         for (int i = 0; i < 24; i++) {
-            Log.i(TAG, uviArray[i].toString());
+
         }
     }
 

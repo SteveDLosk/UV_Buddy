@@ -1,7 +1,6 @@
 package com.weebly.stevelosk.uv_buddy;
 
 
-import android.util.Log;
 
 import static android.content.ContentValues.TAG;
 
